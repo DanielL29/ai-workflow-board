@@ -1,0 +1,34 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vscode/
+.idea/
+
+# Logs / diagnostics
+*.log
+
+# .NET
+**/bin/
+**/obj/
+.dotnet/
+**/.dotnet-cli-home/
+
+# Node / Next.js
+**/node_modules/
+**/.next/
+*.tsbuildinfo
+
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.*
+
+# Env files (keep templates instead)
+.env
+.env.*
