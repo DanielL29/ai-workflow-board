@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\AiBoard.Domain\AiBoard.Domain.csproj" />
+    <ProjectReference Include="..\AiBoard.Shared\AiBoard.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
+    <PackageReference Include="Pgvector" Version="0.3.1" />
+  </ItemGroup>
+</Project>
