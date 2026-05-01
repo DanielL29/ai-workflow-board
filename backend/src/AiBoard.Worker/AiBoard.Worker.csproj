@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+  <ItemGroup>
+    <ProjectReference Include="..\AiBoard.Application\AiBoard.Application.csproj" />
+    <ProjectReference Include="..\AiBoard.Infrastructure\AiBoard.Infrastructure.csproj" />
+    <ProjectReference Include="..\AiBoard.Shared\AiBoard.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.0" />
+  </ItemGroup>
+</Project>

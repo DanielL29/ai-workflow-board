@@ -1,0 +1,66 @@
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      Ollama__Enabled: "true"
+      Ollama__BaseUrl: http://host.docker.internal:11434
+      LocalImage__Enabled: "false"
+      LocalImage__BaseUrl: http://host.docker.internal:7860
+      Stability__Enabled: "true"
+      Stability__BaseUrl: "https://api.stability.ai/"
+      # Provide your key via environment or .env file - do NOT commit secrets
+      Stability__ApiKey: "${STABILITY_API_KEY}"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - generated-images:/app/wwwroot/generated-images
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  worker:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.worker
+    environment:
+      Ollama__Enabled: "true"
+      Ollama__BaseUrl: http://host.docker.internal:11434
+      LocalImage__Enabled: "false"
+      LocalImage__BaseUrl: http://host.docker.internal:7860
+      Stability__Enabled: "true"
+      Stability__BaseUrl: "https://api.stability.ai/"
+      Stability__ApiKey: "${STABILITY_API_KEY}"
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - generated-images:/app/wwwroot/generated-images
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: aiboard
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres-data:
+  generated-images:
